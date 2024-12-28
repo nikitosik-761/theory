@@ -1,0 +1,279 @@
+---------Java---------
+виды наследования;
+какие конструкторы (https://topjava.ru/blog/rukovodstvo-po-konstruktoram-v-java);
+копирование виды (https://metanit.com/java/tutorial/3.13.php);
+сигнатура/контракт/спецификация метода;
+интерфейс/абстрактный класс (https://www.baeldung.com/java-interface-default-method-vs-abstract-class);
+поля в интерфейсе;
+static зачем используем?;
+статистические методы;
+инициализация что это;
+порядок инициализации с учетом предков (https://javastudy.ru/interview/java-oop2/);
+final методы;
+литерал;
+exception/error (https://stackoverflow.com/questions/5813614/what-is-difference-between-errors-and-exceptions);
+effectively final в лямбдах почему;
+аннонимный класс/ что можно передать в лямбде;
+лямбда (https://struchkov.dev/blog/ru/lambda-expression-java/);
+плюcы и минусы рефлексии;
+где уместно использовать рефлексию;
+источники (пользуемся докой);
+intern string;
+виды GC java (https://habr.com/ru/articles/269621/);
+s0 и s1 зачем разделили на два;
+почему лучше использовать обертки;
+future/completable future;
+отличие map от flatmap;
+дженерики определение (https://habr.com/ru/companies/sberbank/articles/416413/);
+коовариантность/инвариантность.котрвариантность;
+Зачем используются thread local переменные?;
+атомики и как работают;
+рекурсия;
+утечки памяти в java (https://habr.com/ru/companies/otus/articles/589321/);
+volitile плюшки (https://www.baeldung.com/java-volatile);
+try with resources (AutoCloseable);
+findFirst/ findAny в strems (https://struchkov.dev/blog/ru/java-stream-api/);
+способы создания потоков;
+sleep vs yield;
+статик метод интерфейса (https://javadevblog.com/interfejsy-v-java-8-staticheskie-metody-metody-po-umolchaniyu-funktsional-ny-e-interfejsy.html);
+что такое enum;
+sealed class;
+fast fail / safe fail (https://www.baeldung.com/java-fail-safe-vs-fail-fast-iterator);
+жизненный цикл потока java;
+stream способы создания;
+stateful stateless в стримах;
+sptliterator в strams();
+mutable и immutable объекты java;
+статическая и динамическая связывание;
+Executor/ExecutorService/ScheduledExecutorService/Executors виды пулов (https://www.baeldung.com/thread-pool-java-and-guava);
+для чего нужен JIT-компилятор, в чем отличие от JVM (https://habr.com/ru/articles/536288/);
+зачем hashcode() если есть equals();
+что генерирует дефолтный хэшкод (https://qna.habr.com/q/537663#answer_1230726);
+к получить доступ к внешнему классу через внутренний класс (OutherName.this.field);
+статистический вложенный класс зачем;
+HashSet (https://foxminded.ua/ru/kak-rabotaet-hashset-v-java/);
+HashMap (https://habr.com/ru/articles/421179/);
+Если я создам класс и в него переопределю метод HashCode, который всегда будет возвращать метод 1, что будет происходить в HashMap?;
+что делать если бесконечно добавлять элементы в мапу с неправильным хэшкодом;
+Виды ссылок java;
+serialVersionId;
+runnable vs callable (https://habr.com/ru/companies/simbirsoft/articles/812097/);
+callable vs future;
+completableFuture(https://sysout.ru/completablefuture/);
+когда использовать checked и unchecked exceptions;
+что такое хэш объекта; //todo
+@SuppressWarnings;
+@SneakyThrows (https://stackoverflow.com/questions/64208790/application-of-sneaky-throws-in-lombok);
+JVM, JRE, JDK;
+Java - статическая или динамическая типизация? Строгая или слабая? Явная или неявная?;
+SOLID/DRY/KISS/YAGNI;
+GOF-паттерны (https://habr.com/ru/articles/210288/);
+доступ к статик через объект возможен ли (да);
+как создать неизменяемый list (https://for-each.dev/lessons/b/-java-immutable-list);
+UUID почему используем (https://habr.com/ru/articles/760272/);
+Что такое daemon потоки;
+Java Memory Model (https://habr.com/ru/articles/685518/);
+Phaser,Semaphore,CountDownLatch,ReentrantLock что делают?;
+wait, notify;
+concurrentCollections (https://docs.oracle.com/javase/tutorial/essential/concurrency/collections.html);
+switch-case (https://habr.com/ru/articles/680940/)
+передача по ссылке или по значению (https://habr.com/ru/companies/otus/articles/551026/)?
+почему String неизменяемая?
+--------Spring--------
+жизненный цикл Spring;
+В чем разница между beanFactoryPostProcessor vs BeanPostProcessor (https://habr.com/ru/articles/470305/)?;
+как работают аннотации по типу @enable;
+@Retryable при эксепшене завершает ли основной поток;
+как тестировать @Retryable;
+self inject;
+@Controller vs @Service vs @Component vs @Respoitory;
+@Import vs @ComponentScan;
+задачки на transactional;
+что такое dispatcher servlet (https://sky.pro/wiki/java/rol-dispatcher-servlet-v-spring-obrabotka-http-zaprosov/);
+S3 хранилище;
+listeners/filter-ы/interseptors/зачем используются фильтры и inter-ы;
+singleton бины lazy или не lazy;
+cglib vs dynamic proxy (https://habr.com/ru/articles/347752/);
+@Around (https://sysout.ru/vvedenie-v-aop-v-spring-boot/);
+@AllArgs vs RequiredArgs;
+как решить циклические зависимости (https://www.baeldung.com/circular-dependencies-in-spring);
+Ioc vs DI;
+Способы внедрения зависимостей (https://habr.com/ru/articles/334636/);
+какие способы описание конфигурации в spring (https://habr.com/ru/articles/489236/)
+propagation в транзациях (https://www.baeldung.com/spring-transactional-propagation-isolation)
+Actuator зачем нужен;
+cross-cutting-concerns (https://stackoverflow.com/questions/23700540/cross-cutting-concern-example);
+ленивая инициализация @Laze как работает;
+виды scope бинов (https://habr.com/ru/articles/470305/);
+@postconstruct можно ли внедрять там бизнес логику;
+@Resource/@Inject/@Autowired;
+как одновременно подключиться к двум базам данным (https://struchkov.dev/blog/ru/multiple-databases-spring-boot/);
+зачем @ResponseBody (https://ru.stackoverflow.com/questions/908674/Зачем-нужен-responsebody-responsebody);
+как без Spring Boot управлять транзакциями = @Entityscan + (https://struchkov.dev/blog/ru/transaction-jdbc-and-spring-boot/);
+что будет если одновременно запускаются два крон метода? (Shedlock);
+кэширование hibernate (https://habr.com/ru/articles/135176/);
+Как spring boot понимает, какой context использовать? (например прод или тест/application.yml);
+как вызвать процедуру из спринга (https://for-each.dev/lessons/b/-spring-data-jpa-stored-procedures);
+какие аннтотации есть в hibernate (@Version, @EntityGraph, @BatchSize, @MappedSuperclass, @Inheritance, @DiscriminatorColumn);
+transactionalTemplate;
+@FrameWorkEndpoint;
+MessageFormat(https://stackoverflow.com/questions/63719078/is-there-an-alternate-to-java-lang-string-format-in-java-to-use-generic-placeh)
+-------БД-----------
+блокировки (https://postgrespro.ru/docs/postgrespro/10/explicit-locking);
+порядок выполнения sql запросов;
+уровни изоляции транзакций (https://struchkov.dev/blog/ru/transactional-isolation-levels/);
+функция vs процедура;
+CAP-теорема (https://habr.com/ru/articles/328792/);
+двухфазный коммит;
+ACID (https://habr.com/ru/articles/555920/#consistency);
+connection pool;
+VACUUM (https://selectel.ru/blog/tutorials/vacuum-postgresql/);
+виды индексов (https://habr.com/ru/companies/otus/articles/747882/);
+У меня спринбутовое приложение. Как заблокировать запись и таблицу, когда я получаю данные и хочу модифицировать их?;
+какие сканы есть в explain analyze (https://habr.com/ru/articles/203320/);
+Балансированное дерево позволяет делать  многоколоночные индексы?;
+optimistic vs pessimistic блокировки (https://www.baeldung.com/jpa-optimistic-locking и https://www.baeldung.com/jpa-pessimistic-locking);
+блокировки в базах данных (https://habr.com/ru/companies/citymobil/articles/595741/);
+если OptimisticLock упал при обновлении, как обрабатывали, что делали;
+Есть особенность, что если мастер отваливается, Postgres автоматически блокируется на запись. Как обходить такие кейсы? (https://habr.com/ru/articles/137932/)
+какие свойства распределенных транзакциях (ACID);
+есть 2 БД. В одну и в другую нужно что-то писать в рамках одного сервиса. Я хочу сделать 1 транзакцию в ОБЕ БД. Как поступать в случае, когда в рез-те работы транзакции произойдет ошибка? как недопустить неконсистентность данных?;
+шардирование и партицирование и репликации (https://habr.com/ru/companies/oleg-bunin/articles/309330/);
+проблемы шардирования и партицирования;
+как вычислить куда попадают данные при парт/шард;
+WAL (https://habr.com/ru/companies/postgrespro/articles/458186/);
+Debezium и CDC (https://habr.com/ru/companies/flant/articles/523510/);
+
+-------Docker------
+Как настроить порты docker expose vs ports;
+dockerfile vs dockercompose;
+volumes vs mounts;
+
+--Liquibase-----
+что такое, для чего используется;
+как ролбекнуться;
+как устроен механизм отката;
+что такое CHANGE SET;
+какая информация лежит в базе;
+что будет, если накатилось всего 10/100 миграций, а мы просим откатить со 100 до 90 миграции;
+
+---Kafka---
+Kafka основы (https://www.youtube.com/watch?v=-AZOi3kP9Js&ab_channel=ВладимирБогдановский) и  (https://www.youtube.com/watch?v=YluvsLmPU78&ab_channel=Уголоксельскогоджависта)
+Kafka нюансы (https://habr.com/ru/companies/slurm/articles/547264/)
+kafka может ли консюмер получить 2 одинаковых сообщения;
+что будет если не будет kafka (что она обеспечивает в микросервисной архитектуре);
+что делать если будет ошибка чтения сообщения из кафка (dead-letter-queue);
+различия kafka и другие брокеры;
+
+---Git---
+git: rebase vs merge (https://www.atlassian.com/git/tutorials/merging-vs-rebasing);
+git: interactive rebase (https://habr.com/ru/companies/flant/articles/536698/);
+
+---Maven---
+maven что это;
+1000 зависимостей maven (provided);
+какой минимальный lifecycle нужен для запуска проекта без idea (compile);
+validate vs verify;
+install vs package;
+что такое site;
+maven wrapper;
+как можно активировать профили (https://for-each.dev/lessons/b/-maven-profiles);
+что такое maven snapshots;
+зачем нужны <plugin> если есть <dependency>;
+что такое repository и их виды (https://proselyte.net/tutorials/maven/repositories/);
+какие минимальный тэги нужны чтобы запустить проект (https://habr.com/ru/articles/309222/);
+scopes;
+
+-----Сеть-------
+что такое API;
+что такое REST и RESTful;
+чем HTTP отличается от SOAP;
+алгоритм шифрования ключча ssh;
+как работают ssl сертификаты (https://skillbox.ru/media/code/protokol-ssl-chto-eto-kak-rabotaet-i-zachem-nuzhen/);
+из чего состоят куки (https://www.kaspersky.ru/resource-center/definitions/cookies);
+в чем прикол muktipartfile;
+какой дефолтный порт у http и https;
+на каких портах работают websockets;
+loadbalancer;
+зачем нужен header host?;
+структура jwt;
+oauth пминусы/как работает варианты аунтификация виды аунтификации;
+идемпотентнось API (https://habr.com/ru/companies/yandex/articles/442762/);
+TCP/jitter/round-trip/buffers/tcp window
+IPv4, IPv6.
+https://developer.mozilla.org/ru/docs/Learn/Common_questions/Web_mechanics/What_is_a_domain_name
+https://temoto.github.io/a/kak-rabotayut-domeny.html
+Основные MX, CNAME, NS, A, AAAA, TXT
+Файл /etc/hosts
+/etc/resolv.conf
+Ведение логов медленных запросов — slow_log
+Триггеры на INSERT/UPDATE/DELETE
+Deadlock и как его не допускать
+https://developer.mozilla.org/ru/docs/Web/HTTP/Status/101
+MIME тип (тип документа) и заголовок типа Content-Type
+Формат передачи application/x-www-form-urlencoded
+Формат передачи multipart/form-data middle
+Системные заголовки Host, Content-Length,Content-Encoding,Transfer-Encoding)
+Кэширование HTTP, заголовки управления кэшем: Cache-Control, Expires, Vary, ETag, Last-Modified.
+Консольные команды HTTP запросов curl, wget
+HTTP API форматы 
+REST API 
+RPC
+GraphQL
+Web сервера
+Nginx
+Access Control List (ACL)
+Role-based access control (RBAC)
+Attribute-based access control
+SSO (https://habr.com/ru/companies/nixys/articles/563244/)
+Ldap
+OpenID
+Принцип разделения кодов на группы: 100-199, 200-299, 300-399, 400-499, 500-599
+Заголовки (https://developer.mozilla.org/ru/docs/Web/HTTP/Headers)
+Куки (https://developer.mozilla.org/ru/docs/Web/HTTP/%D0%9A%D1%83%D0%BA%D0%B8)
+CORS (https://developer.mozilla.org/ru/docs/Web/HTTP/CORS)
+CSP (https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy)
+
+------Elastic------
+Alias;
+Настройки;
+Шаблоны;
+Mapping;
+Запросы поиска;
+Запросы добавления/обновления/удаления документов;
+bulk запросы (Запросы на изменение лучше делать пачкой, так называемым bulk-ом);
+painless-скриптинг(потребуется что бы точечно обновить некоторые поля у документа или вложенные документы, вместо всего документа);
+Подключение или изменение морфологий;
+Агрегации;
+Работа с nested-документами;
+Lucene индексы (
+  Основную работу по индексации и поиску выполняют Lucene-индексы. 
+  Сам ElasticSearch — кластер с HTTP-сервером,гарантирующий сохранность Lucene-индексов и отвечающий за их репликацию и шардирование. 
+  Если вам нужно что бы была быстрая индексация и/или быстрый поиск то вам надо тюнить работу Lucene-индексов
+);
+
+------Mongo------------
+Типы данных в коллекциях, их назначение и различия;
+Как искать, как сортировать;
+Анализ выполнения запросов через explain(), понимание его результатов.;
+Понимание работы индексов (аналогично SQL индексам с небольшими отличиями);
+Sparse свойство индекса;
+Partial свойство индекса;
+TTL свойство индекса;
+Geospatial индекс;
+Text индекс
+Вложенные объекты, массивы;
+Агрегации;
+Работа с репликацией;
+Работа с кластером MongoDb
+
+------Архитектура------
+Outbox pattern (https://habr.com/ru/companies/lamoda/articles/678932/)
+Гексагональная архитектура (https://www.youtube.com/watch?v=V1xP5LVr4fY&ab_channel=Уголоксельскогоджависта)
+Event-Driven Architecture (aka Шаблон посредника или Broker pattern)
+Onion Architecture (аkа Луковая архитектура или Многоуровневый шаблон)
+CQRS (The Command and Query Responsibility Segregation)
+SoA (Service-Oriented Architecture)
+Шаблон MVC
+DDD
+можно ли хореографию в оркестрацию засунуть (https://habr.com/ru/articles/831814/);
