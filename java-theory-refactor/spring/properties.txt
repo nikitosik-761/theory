@@ -1,0 +1,7 @@
+@ConfigurationProperties с указателем префикса и поля = имены пропертей
+
+Интерфейс Environment и получение пропертей или переменных окружения через env.getProperty("application.dog.name")
+
+@Value на поле или в параметры
+
+spel

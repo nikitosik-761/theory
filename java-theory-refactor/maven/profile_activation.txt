@@ -1,0 +1,30 @@
+1) Using -P (command line)
+
+2) Active by Default: 
+<profile>
+    <id>integration-tests</id>
+    <activation>
+        <activeByDefault>true</activeByDefault>
+    </activation>
+</profile>
+
+3) Based on a Property or property with value:
+    <activation>
+        <property>
+            <name>environment</name>
+        </property>
+    </activation>
+
+4) Based on the JDK Version:
+    <activation>
+        <jdk>11</jdk>
+    </activation>
+
+5) Based on the Operating System
+
+6) Based on a File (if a file exists or is missing):
+<activation>
+    <file>
+        <missing>target/testreport.html</missing>
+    </file>
+</activation>

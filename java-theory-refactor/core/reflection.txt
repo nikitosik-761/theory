@@ -1,0 +1,3 @@
+1 cause) when we need to test private methods or set private field to test methods behavior.
+2 cause) for get name of fields to map data to a DB table and assign the object field values to the appropriate DB field names. (orm, mapping)
+3 cause) 

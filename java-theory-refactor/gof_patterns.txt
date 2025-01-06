@@ -1,0 +1,11 @@
+gof - gangs of four:
+
+делятся на 3 группы: 
+	creational patterns:
+		factory, singleton, builder
+
+	behavioral patterns:
+		iterator, chain of responsibility, observer (есть общий руководитель, в котором хранятся обсерверы и которому известен управляющий метод всех обсерверов). Создает механизм у класса, который позволяет получать экземпляру объекта этого класса оповещения от других объектов об изменении их состояния, тем самым наблюдая за ними.
+
+	structural patterns:
+		proxy, facade, decorator, adapter

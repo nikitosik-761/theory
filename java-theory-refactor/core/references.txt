@@ -1,0 +1,7 @@
+1) Strong reference: common reference (e.g. while create object)
+
+2) Soft Reference: object will be deleted when memory is required
+
+3) Weak Reference: object will be deleted the next time gc is started
+
+4) Phantom Reference: get() == null, вызывается метод finalize() (если он переопределен), если после работы finalize() ничего не изменилось и объект все еще может быть удален, фантомная ссылка на объект помещается в специальную очередь — ReferenceQueue. Объект не удаляется из памяти до тех пор, пока его фантомная ссылка находится в этой очереди.
