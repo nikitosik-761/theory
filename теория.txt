@@ -133,6 +133,7 @@ transactionalTemplate;
 @FrameWorkEndpoint;
 MessageFormat(https://stackoverflow.com/questions/63719078/is-there-an-alternate-to-java-lang-string-format-in-java-to-use-generic-placeh)
  N+1 и способы решения
+Как работают стартеры в java
 
 -------БД-----------
 блокировки (https://postgrespro.ru/docs/postgrespro/10/explicit-locking);
