@@ -54,7 +54,7 @@ Executor/ExecutorService/ScheduledExecutorService/Executors виды пулов 
 что генерирует дефолтный хэшкод (https://qna.habr.com/q/537663#answer_1230726);
 к получить доступ к внешнему классу через внутренний класс (OutherName.this.field);
 статистический вложенный класс зачем;
-ArrayList vs LinkedList
+ArrayList vs LinkedList (https://habr.com/ru/articles/162017/)
 Java коллекции
 HashSet (https://foxminded.ua/ru/kak-rabotaet-hashset-v-java/);
 HashMap (https://habr.com/ru/articles/421179/);
