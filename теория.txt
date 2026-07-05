@@ -326,6 +326,7 @@ DDD
 
 ---Задачки---
 Reverse String https://leetcode.com/problems/reverse-string/submissions/2057218861/
+Is Palindrome https://leetcode.com/problems/valid-palindrome/submissions/2057302608/
 
 
 
