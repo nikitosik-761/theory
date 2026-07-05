@@ -60,7 +60,7 @@ HashSet (https://foxminded.ua/ru/kak-rabotaet-hashset-v-java/);
 HashMap (https://habr.com/ru/articles/421179/);
 Если я создам класс и в него переопределю метод HashCode, который всегда будет возвращать метод 1, что будет происходить в HashMap?;
 что делать если бесконечно добавлять элементы в мапу с неправильным хэшкодом;
-Виды ссылок java;
+Виды ссылок java (https://habr.com/ru/articles/169883/);
 serialVersionId;
 runnable vs callable (https://habr.com/ru/companies/simbirsoft/articles/812097/);
 callable vs future;
