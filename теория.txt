@@ -322,3 +322,10 @@ SoA (Service-Oriented Architecture)
 Шаблон MVC
 DDD
 можно ли хореографию в оркестрацию засунуть (https://habr.com/ru/articles/831814/);
+
+---Задачки---
+Reverse String https://leetcode.com/problems/reverse-string/submissions/2057218861/
+
+
+
+
