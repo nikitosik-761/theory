@@ -331,6 +331,19 @@ Reverse String https://leetcode.com/problems/reverse-string/submissions/20572188
 Is Palindrome https://leetcode.com/problems/valid-palindrome/submissions/2057302608/
 Quiq Sort https://leetcode.com/problems/sort-an-array/submissions/2059047143/
 
+--- Заметки ---
+1) В spring существует, как минимум, 3 механизма валидации:
+1. Валидация данных запроса: применяются по умолчанию на все хендлеры эндпоинтов (методы контроллера). Выбрасывается `MethodArgumentNotValidException extends BindException`
+2. Валидация spring: применяется, когда `@Validated` аннотация размещается на уровне класса/метода. Выбрасывается `ConstraintViolationException`
+3. Валидация метода: применяется, когда какие-либо `@Constraint` аннотации размещаются в параметрах метода. Выбрасывается `HandlerMethodValidationException`
 
+https://github.com/spring-projects/spring-framework/issues/31775#issuecomment-1856654770
+
+Тк в методе, который пятисотит используется кастомная аннотация `@MongoDbId`, которая под капотом содержит `@Constraint(validatedBy = MongoDbIdValidator.class)`, то применяется валидация метода '2', а данная ошибка не обработана.
+
+Пример 3х кейсов валидации:
+1. Валидация данных
+2. `testClass` помечен аннотацией `@Validated`
+3. аннотация `@Min` под капотом содержит `@Constraint`
 
 
