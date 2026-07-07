@@ -1,0 +1,307 @@
+Анализ библиотеки для генерации xlsx:
+Используются библиотеки jxls для генерации через шаблоны простых Excel файлов. И чистый poi (используется под капотом jxls) для генерации сложных отчетов, где использование шаблонов не оптимально.
+Зависимости на данный момент:
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-poi</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+1. зависимость с artifactId: jxls содержится в зависимости с artifactId: jxls-poi (можно избавиться, чтобы не получить конфликт версий)
+2. jxls использует под капотом XSSF, что не подходит для создания больших таблиц. однако, poi (содержащаяся в зависимости jxls) содержит поддержку SXSSF, которую можно использовать. https://poi.apache.org/components/spreadsheet/how-to.html
+3. последняя версия jxls 3.0.0 от Mar 30, 2024 содержит зависимость poi 5.2.2
+
+Время работы при генерации xlsx размером 230 тыс. строк на 50 строк:
+Poi (XSSF): > 15 min
+Poi (SXSSF): Cost time 27514ms
+FastExcel: Cost time 8475ms
+EasyExcel: Cost time 32589ms
+MyExcel (with 10 threads): Cost time 27174ms
+
+Исходя из теста можно выделить библиотеку FastExcel https://github.com/dhatim/fastexcel (плюсы и минусы):
++ скорость
++ понятный API
+- меньше функционала, чем в poi
+- меньше юзкейсов, чем у poi
+- легковесная, не поддерживает создание фильтров
+
+
+Generate test xlsx from created csv file (230k lines height | 50 width)
+
+import cn.hutool.core.io.FileUtil;
+import cn.hutool.core.lang.Pair;
+import cn.hutool.core.text.csv.CsvReader;
+import cn.hutool.core.text.csv.CsvUtil;
+import cn.hutool.core.text.csv.CsvWriter;
+import com.alibaba.excel.EasyExcel;
+import com.github.liaochong.myexcel.core.DefaultStreamExcelBuilder;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.Reader;
+import java.nio.charset.StandardCharsets;
+import java.time.Duration;
+import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Random;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import org.apache.poi.xssf.streaming.SXSSFCell;
+import org.apache.poi.xssf.streaming.SXSSFRow;
+import org.apache.poi.xssf.streaming.SXSSFSheet;
+import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFCell;
+import org.apache.poi.xssf.usermodel.XSSFRow;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.dhatim.fastexcel.Workbook;
+import org.dhatim.fastexcel.Worksheet;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+@TestInstance(TestInstance.Lifecycle.PER_CLASS)
+@ExtendWith(MockitoExtension.class)
+class ExcelTest {
+
+    Logger logger = LoggerFactory.getLogger(ExcelTest.class);
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(10);
+
+    @BeforeAll
+    void setTempDir() {
+        System.setProperty("java.io.tmpdir", "D:\\tmp\\java");
+    }
+
+    /**
+     * generate test xlsx (time < 15s)
+     */
+    @Test
+    @DisplayName("ignore")
+    void Test1() {
+        LocalDateTime start = LocalDateTime.now();
+        try (OutputStream os = FileUtil.getOutputStream("D:\\tmp\\TEST1.xlsx")) {
+            Workbook wb = new Workbook(os, "MyApplication", "1.0");
+            Worksheet ws = wb.newWorksheet("Sheet 1");
+            HashMap<Pair<Integer, Integer>, String> dataMap = new HashMap<>();
+            for (int i = 0; i < 230000; i++) {
+                String[] strings = new Random()
+                        .ints(50, 100, 150)
+                        .mapToObj(a -> "TEST_" + a)
+                        .collect(Collectors.toList())
+                        .toArray(new String[]{});
+                for (int j = 0; j < 50; j++) {
+                    ws.value(i, j, strings[j]);
+                }
+            }
+            wb.finish();
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    /**
+     * generate test csv  (time < 2s)
+     */
+    @Test
+    @DisplayName("ignore")
+    void Test2() {
+        LocalDateTime start = LocalDateTime.now();
+        try (CsvWriter writer = CsvUtil.getWriter("D:\\tmp\\TEST2.csv", StandardCharsets.UTF_8)) {
+            writer.writeHeaderLine(IntStream.range(0, 50)
+                    .mapToObj(String::valueOf)
+                    .collect(Collectors.toList())
+                    .toArray(new String[]{}));
+            for (int i = 0; i < 230000; i++) {
+                String[] strings = new Random()
+                        .ints(50, 100, 150)
+                        .mapToObj(a -> "TEST_" + a)
+                        .collect(Collectors.toList())
+                        .toArray(new String[]{});
+                writer.writeLine(strings);
+            }
+
+        } catch (Exception e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    /**
+     * convert by fastexcel   (time < 15s)
+     */
+    @Test
+    @DisplayName("fastexcel")
+    void Test3() {
+        LocalDateTime start = LocalDateTime.now();
+        try (OutputStream os = FileUtil.getOutputStream("D:\\tmp\\TEST3.xlsx");
+             CsvReader reader = CsvUtil.getReader(FileUtil.getUtf8Reader("D:\\tmp\\TEST2.csv"))) {
+
+            Workbook wb = new Workbook(os, "MyApplication", "1.0");
+            Worksheet ws = wb.newWorksheet("Sheet 1");
+            reader.stream().forEach(a -> {
+                long originalLineNumber = a.getOriginalLineNumber();
+                for (int i = 0; i < a.size(); i++) {
+                    ws.value((int) originalLineNumber, i, a.get(i));
+                }
+            });
+            wb.finish();
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    /**
+     * convert by SXSSFWorkbook  (time < 30s)
+     */
+    @Test
+    @DisplayName("poi SXSSF")
+    void Test4() {
+        LocalDateTime start = LocalDateTime.now();
+        try (CsvReader reader = CsvUtil.getReader(FileUtil.getUtf8Reader("D:\\tmp\\TEST2.csv"));
+             OutputStream os = FileUtil.getOutputStream("D:\\tmp\\TEST4.xlsx");
+             SXSSFWorkbook workbook = new SXSSFWorkbook(SXSSFWorkbook.DEFAULT_WINDOW_SIZE)) {
+
+            SXSSFSheet sheet = workbook.createSheet("Sheet 1");
+            reader.stream().forEach(a -> {
+                long originalLineNumber = a.getOriginalLineNumber();
+                SXSSFRow row = sheet.createRow((int) originalLineNumber);
+                for (int i = 0; i < a.size(); i++) {
+                    SXSSFCell cell = row.createCell(i);
+                    cell.setCellValue(a.get(i));
+                }
+            });
+            workbook.write(os);
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    /**
+     * convert by easyexcel  (time < 30s)
+     */
+    @Test
+    @DisplayName("easyexcel")
+    void Test5() {
+        LocalDateTime start = LocalDateTime.now();
+        try (CsvReader reader = CsvUtil.getReader(FileUtil.getUtf8Reader("D:\\tmp\\TEST2.csv"))) {
+            EasyExcel.write("D:\\tmp\\TEST5.xlsx", ExcelTest.class)
+                    .sheet("Sheet 1")
+                    .needHead(false)
+                    .doWrite(() -> reader.stream().collect(Collectors.toList()));
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    /**
+     * convert by myexcel  (time < 30s)
+     */
+    @Test
+    @DisplayName("myexcel")
+    void Test6() {
+        LocalDateTime start = LocalDateTime.now();
+        try (OutputStream os = FileUtil.getOutputStream("D:\\tmp\\TEST6.xlsx");
+             Reader reader = FileUtil.getUtf8Reader("D:\\tmp\\TEST2.csv");
+             CsvReader csvReader = CsvUtil.getReader();
+             DefaultStreamExcelBuilder<Map> defaultExcelBuilder = DefaultStreamExcelBuilder.of(Map.class)
+                     .threadPool(executorService)
+                     .start()) {
+            csvReader.setContainsHeader(true);
+            List maps = csvReader.readMapList(reader);
+            defaultExcelBuilder.asyncAppend(() -> maps);
+            org.apache.poi.ss.usermodel.Workbook workbook = defaultExcelBuilder.build();
+            workbook.write(os);
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+    @Test
+    @Disabled("too long")
+    @DisplayName("poi XSSF")
+    void Test7() {
+        LocalDateTime start = LocalDateTime.now();
+        try (CsvReader reader = CsvUtil.getReader(FileUtil.getUtf8Reader("D:\\tmp\\TEST2.csv"));
+             OutputStream os = FileUtil.getOutputStream("D:\\tmp\\TEST7.xlsx");
+             XSSFWorkbook workbook = new XSSFWorkbook()) {
+
+            XSSFSheet sheet = workbook.createSheet("Sheet 1");
+            reader.stream().forEach(a -> {
+                long originalLineNumber = a.getOriginalLineNumber();
+                XSSFRow row = sheet.createRow((int) originalLineNumber);
+                for (int i = 0; i < a.size(); i++) {
+                    XSSFCell cell = row.createCell(i);
+                    cell.setCellValue(a.get(i));
+                }
+            });
+            workbook.write(os);
+        } catch (IOException e) {
+            logger.error("Error", e);
+        }
+        LocalDateTime end = LocalDateTime.now();
+        logger.info("Cost time {}", Duration.between(start, end).toMillis() + "ms");
+    }
+
+}
+
+зависимости:
+	<dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jxls</groupId>
+            <artifactId>jxls-poi</artifactId>
+            <version>3.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.dhatim</groupId>
+            <artifactId>fastexcel</artifactId>
+            <version>0.18.4</version>
+        </dependency>
+        <dependency>
+            <groupId>cn.hutool</groupId>
+            <artifactId>hutool-all</artifactId>
+            <version>5.8.30</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>4.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.liaochong</groupId>
+            <artifactId>myexcel</artifactId>
+            <version>4.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+        </dependency>
