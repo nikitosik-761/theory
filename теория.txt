@@ -44,6 +44,7 @@ sleep vs yield;
 sealed class;
 fast fail / safe fail (https://www.baeldung.com/java-fail-safe-vs-fail-fast-iterator);
 жизненный цикл потока java;
+виртуальный потоки ( https://habr.com/ru/companies/naumen/articles/953262/?ysclid=mv0sitzuvg650465891 )
 stream способы создания;
 stateful stateless в стримах;
 sptliterator в strams();
