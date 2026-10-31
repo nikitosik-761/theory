@@ -79,7 +79,7 @@ GOF-паттерны (https://habr.com/ru/articles/210288/);
 UUID почему используем (https://habr.com/ru/articles/760272/);
 Что такое daemon потоки;
 Java Memory Model (https://habr.com/ru/articles/685518/);
-Phaser,Semaphore,CountDownLatch,ReentrantLock что делают?;
+Phaser,Semaphore,CountDownLatch,ReentrantLock что делают?; ( https://habr.com/ru/articles/277669/ ) 
 wait, notify;
 concurrentCollections (https://docs.oracle.com/javase/tutorial/essential/concurrency/collections.html);
 В чем особенность работы ForkJoinPool
