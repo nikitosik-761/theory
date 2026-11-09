@@ -186,6 +186,8 @@ ORDER BY p.product_id, p.debt_date DESC
 OFFSET $9
 LIMIT $10
 почему это плохо
+Что делать с долгим запросом ( https://youtu.be/AZF9QZeJ-v8?si=TJZMdGntDBfKwZ0z )
+Хелпер для оптимизаций ( https://explain.dalibo.com/plan/73d489hd96222127# )
 
 
 -------Docker------
